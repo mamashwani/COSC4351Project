@@ -1,0 +1,52 @@
+<!-- templates/home.html -->
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+
+    {% if user.group_name == "Regular Employee" or user.group_name == "text" %}
+        Hi {{ user.username }}! You aren't allowed to be here!
+    {% else %}
+        Hi {{ user.username }}! <br>Your role is: {{user.group_name}}
+        
+        <p><a href=""><br>Manage User Accounts</a></p>
+        <p><a href="">Assign Roles</a></p>
+        <p><a href="">Help Desk</a></p>
+        
+        {% if user.group_name == "FINANCE_ADMIN" %}
+            <p><a href="">Finance Reports</a></p>
+            <p><a href="">Accounts Payable</a></p>
+            <p><a href="">Accounts Receivable</a></p>
+            <p><a href="">Tax</a></p>
+        {% endif %}
+        {% if user.group_name == "SALES_ADMIN" %}
+            <p><a href="">Sales Reports</a></p>
+            <p><a href="">Sales Leads</a></p>
+            <p><a href="">Sales Demo</a></p>
+        {% endif %}
+        {% if user.group_name == "HR_ADMIN" %}
+            <p><a href="">New Hire</a></p>
+            <p><a href="">On-boarding</a></p>
+            <p><a href="">Benefits</a></p>
+            <p><a href="">Payroll</a></p>
+            <p><a href="">Terminations</a></p>
+            <p><a href="">HR Reports</a></p>
+        {% endif %}
+        {% if user.group_name == "ENGG_ADMIN" %}
+            <p><a href="">Application Monitoring</a></p>
+            <p><a href="">Tech Support</a></p>
+            <p><a href="">App Development</a></p>
+            <p><a href="">App Admin</a></p>
+            <p><a href="">Release Management</a></p>
+        {% endif %}        
+    {% endif %}
+    
+    <p><a href="{% url 'logout' %}">logout</a></p>
+{% else %}
+	<p>You are not logged in</p>
+	<a href="{% url 'login' %}">login</a>
+	<a href="{% url 'signup' %}">signup</a>
+{% endif %}
+{% endblock %}
